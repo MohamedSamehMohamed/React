@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TypeRacer</title>
+    <link rel="stylesheet" href="site.css" asp-append-version="true"/>
+</head>
+<body>
+<div class = "container">
+  <h1 class = "HeadTitle"><span class = "firstPart">Type</span> <span class = "sceondPart">Racer</span></h1>
+  <div id = "editText">
+    <input type = "text" placeholder="add text to write" id = "textToAdd">
+    <input type = "button" value = "addText" id = "addText">
+    <input type = "button" value = "generateRandom" id = "genRandom">
+  </div>
+  <div class="Content">
+          <span id = "markedText" class = "markedText"></span><span class = "markedWrong" id = "markedWrong"></span><span id = "unMarkedText" class = "unMarkedText">We all.</span>
+  </div>
+  <div>
+      <input type = "text" id = "typedText" class= "typedText"/>
+      <span id = "wpmScore"></span>
+      <ul id = "info"></ul>
+  </div>
+  <span id = "countDown"></span>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2023 - TypeRacer
+    </div>
+</footer>
+<script src="site.js" asp-append-version="true"></script>
+</body>
+</html>

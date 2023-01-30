@@ -1,0 +1,73 @@
+html {
+  font-size: 20px;
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px;
+  text-align: center;
+}
+.container{
+  margin-left: 20px;
+}
+.Content{
+  user-select: none;
+  font-size: 20px;
+  width: 70%;
+  margin: auto;
+}
+ul{
+  list-style-type: none;
+  text-align: left;
+  height: 30px;
+}
+
+#countDown{
+  text-align: center;
+  height: 50px;
+  font-weight: bold;
+  font-size: 100px;  
+  width: 30px;
+}
+
+.markedText{
+  color: #0cff00;
+}
+.markedWrong{
+  color: red;
+}
+#textToAdd{
+  width: 60%;
+}
+#typedText{
+  width: 60%;
+}
+.firstPart{
+  background: #0cff00;
+  color: white;
+  font-size: 50px;
+}
+.sceondPart{
+  background: red;
+  color: white;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+.text-muted {
+  --bs-text-opacity: 1;
+  color: #6c757d !important;
+}
+#info{
+  font-size: 30px;
+  color: blue;
+}
+#editText{
+  margin-bottom: 50px;
+  border-radius: 4px;
+  border: #6c757d;
+}
