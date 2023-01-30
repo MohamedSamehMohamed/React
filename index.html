@@ -8,20 +8,23 @@
 </head>
 <body>
 <div class = "container">
-  <h1 class = "HeadTitle"><span class = "firstPart">Type</span> <span class = "sceondPart">Racer</span></h1>
+  <h1 class = "HeadTitle">
+    <span class = "firstPart">Type</span>
+    <span class = "sceondPart">Racer</span>
+  </h1>
+  
   <div id = "editText">
     <input type = "text" placeholder="add text to write" id = "textToAdd">
     <input type = "button" value = "addText" id = "addText">
     <input type = "button" value = "generateRandom" id = "genRandom">
   </div>
-  <div class="Content">
-          <span id = "markedText" class = "markedText"></span><span class = "markedWrong" id = "markedWrong"></span><span id = "unMarkedText" class = "unMarkedText">We all.</span>
-  </div>
+  <div class="Content" id = "content"><span id = 'unMarkedText'>This is the text</span></div>
   <div>
       <input type = "text" id = "typedText" class= "typedText"/>
       <span id = "wpmScore"></span>
       <ul id = "info"></ul>
   </div>
+  
   <span id = "countDown"></span>
 </div>
 
