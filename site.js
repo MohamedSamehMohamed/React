@@ -3,42 +3,77 @@ function checkText(){
     location.reload();
     return;
   }
+  // what user typed 
   let str = document.getElementById("typedText").value;
-  let unTypedText = document.getElementById("unMarkedText").textContent;
-  let typedText = document.getElementById("markedText").textContent;
-  let typedWrongText = document.getElementById('markedWrong').textContent;
+  // the text to be typed
+  let unTypedText = document.getElementById("content").textContent;
+  
+  // if race didn't start yet 
   if (count >= 0) {
       document.getElementById("typedText").value = '';
       return;
   }
-  unTypedText = typedWrongText + unTypedText;
-  
-  if (unTypedText.length == 0){
-      return;
+  let indexForUnTyped = 0;
+  // charactersArray[i] -> 0 not typed yet
+  // charactersArray[i] -> 1 typed correctly 
+  // charactersArray[i] -> -1 typed incorrectly 
+  // charactersArray[i] ->  2 typed incorrectly then correctly 
+
+  while (indexForUnTyped < textSize && charactersArray[indexForUnTyped] > 0){
+    indexForUnTyped++;
   }
-  let strToMarkedRed = '';
-  if (unTypedText[0] != str[0]){
-      wrongChars+=1;
-      let len = (unTypedText.length < str.length? unTypedText.length: str.length);
-      strToMarkedRed = unTypedText.substring(0, len);
-      unTypedText = unTypedText.substring(len);
-  }else {
-      let i = 0;
-      while (i < unTypedText.length && i < str.length && str[i] == unTypedText[i]) {
-          typedText += str[i];
-          i++;
+  while (indexForUnTyped < textSize && str.length > 0){
+    if (unTypedText[indexForUnTyped] == str[0])
+    {
+      charactersArray[indexForUnTyped] = (charactersArray[indexForUnTyped] == -1? 2: 1);
+      str = str.substr(1);
+      indexForUnTyped++;
+    }else {
+      let wrongChars = str.length;
+      while (indexForUnTyped < textSize && wrongChars > 0){
+        charactersArray[indexForUnTyped] = -1;
+        wrongChars--;
+        indexForUnTyped++;
       }
-      i--;
-      str = str.substring(i + 1);
-      unTypedText = unTypedText.substring(i + 1);
+      break;
+    }
   }
+  // clear the old text
+  document.getElementById('content').textContent = '';
+  
+  console.log(charactersArray);
+  for (let i = 0; i < textSize; i++){
+    let j = i + 1;
+    let text = unTypedText[i];
+    while (j < textSize && charactersArray[j] == charactersArray[j-1]){
+      text += unTypedText[j];
+      j++;
+    }
+  
+    let curText = document.createElement("span");
+    if (charactersArray[i] == 0){
+      curText.className = 'unMarkedText';
+    }else if (charactersArray[i] == 1)
+    {
+      curText.className = 'markedText';
+    }else if (charactersArray[i] == -1)
+    {
+      curText.className = 'markedWrong';
+    }else if (charactersArray[i] == 2){
+      curText.className = 'markedTextWithFail';
+    }
+    curText.textContent = text;
+    document.getElementById('content').appendChild(curText);
+    i = j - 1;
+  }
+  
   document.getElementById("typedText").value = str;
-  document.getElementById("unMarkedText").textContent = unTypedText;
-  document.getElementById("markedText").textContent = typedText;
-  document.getElementById("markedWrong").textContent = strToMarkedRed;
-  let seconds = calcWPM();
-  if (unTypedText.length + strToMarkedRed.length == 0){
-      printAllInfo(seconds);
+  let timeForTyping = calcWPM()
+
+  // if all letters are writen correctly 
+  if (charactersArray[textSize-1] > 0)
+  {
+    printAllInfo(timeForTyping);
   }
 }
 function addToUl(ul, text){
@@ -52,7 +87,15 @@ function printAllInfo(seconds){
   addToUl(ul, str);
   str = 'Time: ' + seconds.toPrecision(3) + ' seconds';
   addToUl(ul, str);
-  str = 'accurecy: ' + parseInt(100 * (1 - (((wrongChars/textSize)*100)/100))) + '%';
+  let wrongChars = 0;
+  for (let i = 0; i < textSize; i++)
+  {
+    if (charactersArray[i] == 2)
+    {
+      wrongChars++;
+    }
+  }
+  str = 'accurecy: ' + parseInt(100 * (1 - (wrongChars/textSize))) + '%';
   addToUl(ul, str);
   str = 'word per minute (wpm): ' + calcWpmHelper(seconds, textSize) + ' wpm';
   addToUl(ul, str);
@@ -76,7 +119,7 @@ function countDown(){
       e.textContent = 'Go';
       e.style = 'color: green';
       start = new Date();
-      textSize = document.getElementById("unMarkedText").textContent.length;
+      textSize = document.getElementById("content").textContent.length;
       wrongChars = 0;
       count -= 1;
       isCheater = 0;
@@ -86,15 +129,13 @@ function countDown(){
   count-=1;
 }
 function addTextHelper(text){
-  document.getElementById("unMarkedText").textContent = text;
-  document.getElementById("markedText").textContent = '';
-  document.getElementById('markedWrong').textContent = '';
+  document.getElementById("content").textContent = text;
   document.getElementById('info').textContent = '';
   document.getElementById("typedText").value = '';
   count = 2;
 }
 function addText(){
-  let text = document.getElementById('textToAdd').value;
+  let text = document.getElementById('content').value;
   if (text.length == 0) {
     alert('please Add Text');
     return;
@@ -130,8 +171,12 @@ typedTextInput.oninput = function (){checkText()};
 
 let start;
 let end;
-let wrongChars;
-let textSize = document.getElementById("unMarkedText").textContent.length;
+let textSize = document.getElementById("content").textContent.length;
+let charactersArray = Array(textSize);
+for (let i = 0; i < textSize; i++){
+  charactersArray[i] = 0;
+}
+// time before the race
 let count = 2;
 let isCheater = 0;
 setInterval('countDown();', 1000);
