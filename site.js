@@ -41,7 +41,6 @@ function checkText(){
   // clear the old text
   document.getElementById('content').textContent = '';
   
-  console.log(charactersArray);
   for (let i = 0; i < textSize; i++){
     let j = i + 1;
     let text = unTypedText[i];
@@ -81,12 +80,17 @@ function addToUl(ul, text){
   li.appendChild(document.createTextNode(text));
   ul.appendChild(li);
 }
-function printAllInfo(seconds){
-  let str = 'total number of characters Writen is ' + textSize + ' character';
-  var ul = document.getElementById("info");
-  addToUl(ul, str);
-  str = 'Time: ' + seconds.toPrecision(3) + ' seconds';
-  addToUl(ul, str);
+function addTableRow(column1, column2){
+  let tr = document.createElement('tr');
+  let td1 = document.createElement('td');
+  let td2 = document.createElement('td');
+  td1.textContent = column1; 
+  td2.textContent = column2;
+  tr.appendChild(td1);
+  tr.appendChild(td2);
+  document.getElementById('tableInfo').appendChild(tr);
+}
+function getNumberOfWrongCharsTyped(){
   let wrongChars = 0;
   for (let i = 0; i < textSize; i++)
   {
@@ -95,10 +99,14 @@ function printAllInfo(seconds){
       wrongChars++;
     }
   }
-  str = 'accurecy: ' + parseInt(100 * (1 - (wrongChars/textSize))) + '%';
-  addToUl(ul, str);
-  str = 'word per minute (wpm): ' + calcWpmHelper(seconds, textSize) + ' wpm';
-  addToUl(ul, str);
+  return wrongChars;
+}
+function printAllInfo(seconds){
+  addTableRow('total number of characters Writen: ', textSize + ' character');
+  addTableRow('Time: ', seconds.toPrecision(3) + ' seconds');
+  let wrongChars = getNumberOfWrongCharsTyped();
+  addTableRow('accurecy: ', parseInt(100 * (1 - (wrongChars/textSize))) + '%');
+  addTableRow('word per minute (wpm): ', calcWpmHelper(seconds, textSize) + ' wpm');
 }
 function calcWpmHelper(time, textSize){
   let charsPerSecond = textSize / time;
@@ -125,13 +133,15 @@ function countDown(){
       isCheater = 0;
       return;
   }
+  e.style = '';
   e.textContent = count;
   count-=1;
 }
 function addTextHelper(text){
   document.getElementById("content").textContent = text;
-  document.getElementById('info').textContent = '';
+  document.getElementById('tableInfo').textContent = '';
   document.getElementById("typedText").value = '';
+  
   count = 2;
 }
 function addText(){
