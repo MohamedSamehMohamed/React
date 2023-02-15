@@ -9,9 +9,18 @@
 <body>
 <div class = "container">
   <h1 class = "HeadTitle">
-    <span class = "firstPart">Type</span>
-    <span class = "sceondPart">Racer</span>
+	  
   </h1>
+  <fieldset>
+	<legend>Choose your Diffuculty</legend>
+	<input type="radio" id="easy"/>easy
+	&nbsp;&nbsp;
+	<input type="radio" id="meduim"/>medium
+	&nbsp;&nbsp;
+	<input type="radio" id="hard"/>hard
+	&nbsp;&nbsp;
+	<input type="radio" id="default"/>default
+  </fieldset>
   <div id = "editText">
     <input type = "text" placeholder="add text to write" id = "textToAdd">
     <input type = "button" value = "addText" id = "addText">
@@ -22,10 +31,16 @@
   <div id = "countDown"> Are You Ready!!! </div>
   
   
-  <div class="Content" id = "content"><span id = 'unMarkedText'>This is the text</span></div>
-  <input type = "text" id = "typedText" class= "typedText"/><span id = "wpmScore"></span>
+  <div class="Content" id = "content"><span id = 'unMarkedText'>Robert Langdon, Harvard professor of symbology and religious iconology, arrives at the Guggenheim Museum Bilbao to attend the unveiling of a discovery that will change the face of science forever. The evening's host is his friend and former student, Edmond Kirsch, a forty-year-old tech magnate whose dazzling inventions and audacious predictions have made him a controversial figure around the world. This evening is to be no exception: he claims he will reveal an astonishing breakthrough to challenge the fundamentals of human existence.</span></div>
+  <input type = "text" id = "typedText" class= "typedText"/><span id = "wpmScore"></span> <span id = "passedTime"></span>
+  <br>
+  <table id = 'tableInfo'></table>
   
-  <table id = 'tableInfo'> </table>
+  <table id = 'RaceHistoryTable' class = "historyTable"> 
+  <tr> <th>Count of characters</th> <th>Speed</th> <th>Accurcy</th> <th>Time</th></tr>
+  
+  </table>
+  
 </div>
 
 <footer class="border-top footer text-muted">

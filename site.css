@@ -6,6 +6,7 @@ html {
 body {
   margin-bottom: 60px;
   text-align: center;
+  user-select: none;
 }
 .container{
   text-align: center;
@@ -18,11 +19,11 @@ body {
   width: 70%;
   margin: auto;
 }
-
 #countDown{
   text-align: center;
   font-weight: bold;
   font-size: 100px;  
+  user-select: none;
 }
 .infoBox{
   width: 700px;
@@ -32,15 +33,27 @@ body {
 }
 .unMarkedText {
   color: black;
+  -webkit-text-stroke-width: 1px;
 }
 .markedText{
   color: #0cff00;
+  -webkit-text-stroke-width: 1px;
 }
 .markedWrong{
   color: red;
+  -webkit-text-stroke-width: 1px;
+}
+.unactive{
+font-size: 80px;
+color: black;
+}
+.active{
+font-size: 85px;
+color: green;
 }
 .markedTextWithFail{
-  color: yellow;
+  color: #ccff0c;
+  -webkit-text-stroke-width: 1px;
 }
 #textToAdd{
   width: 60%;
@@ -64,11 +77,14 @@ body {
   white-space: nowrap;
   line-height: 60px;
 }
+fieldset {
+  display: inline;
+}
+
 .text-muted {
   --bs-text-opacity: 1;
   color: #6c757d !important;
 }
-
 #editText{
   margin-bottom: 50px;
   border-radius: 4px;
@@ -77,7 +93,14 @@ body {
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+
 table {
-  margin-left: auto;
-  margin-right: auto;
+display: inline;
+border-collapse: collapse;
 }
+th, td{
+border: 1px solid green;
+text-align: left;
+padding: 2px;
+}
+
