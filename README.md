@@ -1,5 +1,6 @@
 # TypeRacer
-This is a TestSpeed Page to calculate the speed of you, like famous site [typeRacer.com]
+This is a TestSpeed app to calculate your speed of typing, like the famous site [typeRacer.com]
+
 
 build using html, css and js only 
 
